@@ -41,6 +41,7 @@ class Product(models.Model):
     name = models.CharField(max_length=150)
     slug = models.SlugField(max_length=150, editable=False)
     price = models.IntegerField()
+    old_price = models.IntegerField(null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     size = models.ForeignKey(Size, on_delete=models.CASCADE, blank=True, null=True)
     color = models.ForeignKey(Color, on_delete=models.CASCADE)

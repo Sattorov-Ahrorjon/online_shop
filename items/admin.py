@@ -16,7 +16,7 @@ from .models import (
 
 class ProductAdmin(admin.ModelAdmin):
     model = Product
-    list_display = ['id', 'name', 'created_time', 'status']
+    list_display = ['id', 'name', 'created_time', 'status', 'old_price', 'price']
     list_display_links = ['name']
     actions = ['published', 'draft']
 

@@ -11,19 +11,7 @@ def get_home(request):
     try:
         query = Product.objects
         categories = query.filter(status=Status.Published).order_by('category__name').distinct('category__name')
-        # product_list = query.filter(status=Status.Published)
-        # comment_list = Comment.objects.filter(active=True)
-        # star_dict = dict()
-        # for product in product_list:
-        #     star_dict[product.name] = 1
-        #     for com in comment_list:
-        #         if product.name == com.product.name:
-        #             star_dict[product.name] = star_dict[product.name] + com.star
-        #
-        # # hhh
-        # print("Star  -  ", star_dict)
-
-        featured = Comment.objects.filter(active=True).order_by('-star')[:8]
+        featured = query.filter(status=Status.Published).order_by('-created_time')[:8]
         recent = query.filter(status=Status.Published).order_by('-created_time')[:8]
     except:
         categories = []

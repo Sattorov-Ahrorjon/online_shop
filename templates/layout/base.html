@@ -33,50 +33,6 @@
 <body>
 <!-- Topbar Start -->
 <div class="container-fluid">
-    <div class="row bg-secondary py-1 px-xl-5">
-        <div class="col-lg-6 d-none d-lg-block">
-            <div class="d-inline-flex align-items-center h-100">
-                <a class="text-body mr-3" href="">About</a>
-                <a class="text-body mr-3" href="">Contact</a>
-                <a class="text-body mr-3" href="">Help</a>
-                <a class="text-body mr-3" href="">FAQs</a>
-            </div>
-        </div>
-        <div class="col-lg-6 text-center text-lg-right">
-            <div class="d-inline-flex align-items-center">
-                <div class="btn-group mx-2">
-                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">USD
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <button class="dropdown-item" type="button">EUR</button>
-                        <button class="dropdown-item" type="button">GBP</button>
-                        <button class="dropdown-item" type="button">CAD</button>
-                    </div>
-                </div>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">EN
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <button class="dropdown-item" type="button">FR</button>
-                        <button class="dropdown-item" type="button">AR</button>
-                        <button class="dropdown-item" type="button">RU</button>
-                    </div>
-                </div>
-            </div>
-            <div class="d-inline-flex align-items-center d-block d-lg-none">
-                <a href="" class="btn px-0 ml-2">
-                    <i class="fas fa-heart text-dark"></i>
-                    <span class="badge text-dark border border-dark rounded-circle"
-                          style="padding-bottom: 2px;">0</span>
-                </a>
-                <a href="" class="btn px-0 ml-2">
-                    <i class="fas fa-shopping-cart text-dark"></i>
-                    <span class="badge text-dark border border-dark rounded-circle"
-                          style="padding-bottom: 2px;">0</span>
-                </a>
-            </div>
-        </div>
-    </div>
     <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
         <div class="col-lg-4">
             <a href="{% url 'home_page' %}" class="text-decoration-none">
@@ -85,9 +41,9 @@
             </a>
         </div>
         <div class="col-lg-4 col-6 text-left">
-            <form  method="GET" action="{% url 'shop_page' %}">
+            <form method="GET" action="{% url 'shop_page' %}">
                 <div class="input-group">
-                    <input type="search"  name="q" class="form-control" placeholder="Search for products">
+                    <input type="search" name="q" class="form-control" placeholder="Search for products">
                     <div class="input-group-append">
                             <span class="input-group-text bg-transparent text-primary">
                                 <i class="fa fa-search"></i>
@@ -118,7 +74,8 @@
                  id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
                 <div class="navbar-nav w-100">
                     {% for object in categs %}
-                    <a href="{% url 'get_category_sort_page' object.slug %}" class="nav-item nav-link">{{ object.name|title }}</a>
+                    <a href="{% url 'get_category_sort_page' object.slug %}" class="nav-item nav-link">
+                        {{object.name|title }}</a>
                     {% endfor %}
                 </div>
             </nav>
@@ -137,12 +94,14 @@
                         <a href="{% url 'home_page' %}" class="nav-item nav-link {{ home }}">Home</a>
                         <a href="{% url 'shop_page' %}" class="nav-item nav-link {{ shop }}">Shop</a>
                         {% if obj.slug %}
-                        <a href="{% url 'detail_page' obj.slug obj.id %}" class="nav-item nav-link {{ detail }} ">Shop Detail</a>
+                        <a href="{% url 'detail_page' obj.slug obj.id %}" class="nav-item nav-link {{ detail }} ">
+                            Shop Detail</a>
                         {% else %}
                         <a href="#" class="nav-item nav-link {{ detail }} ">Shop Detail</a>
                         {% endif %}
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle {{ cart }} {{ checkout }} " data-toggle="dropdown">Pages <i
+                            <a href="#" class="nav-link dropdown-toggle {{ cart }} {{ checkout }} "
+                               data-toggle="dropdown">Pages <i
                                     class="fa fa-angle-down mt-1"></i></a>
                             <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
                                 <a href="{% url 'cart_page' %}" class="dropdown-item {{ cart }} ">Shopping Cart</a>
@@ -152,7 +111,8 @@
 
                         {% if not user.is_authenticated %}
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle {{ signup }} {{ login }} " data-toggle="dropdown">Contact <i
+                            <a href="#" class="nav-link dropdown-toggle {{ signup }} {{ login }} "
+                               data-toggle="dropdown">Contact <i
                                     class="fa fa-angle-down mt-1"></i></a>
                             <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
                                 <a href="{% url 'login_page' %}" class="dropdown-item {{ login }} "> Login </a>
@@ -161,10 +121,13 @@
                         </div>
                         {% else %}
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle {{ change_profile }} {{ logout }} " data-toggle="dropdown"> {{ user.username|title }}'s  profile <i
+                            <a href="#" class="nav-link dropdown-toggle {{ change_profile }} {{ logout }} "
+                               data-toggle="dropdown"> {{ user.username|title }}'s profile <i
                                     class="fa fa-angle-down mt-1"></i></a>
                             <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-                                <a href="{% url 'customer_edit_page' %}" class="dropdown-item {{ change_profile }} "> Change profile </a>
+                                <a href="{% url 'customer_edit_page' %}" class="dropdown-item {{ change_profile }} ">
+                                    Change profile
+                                </a>
                                 <a href="{% url 'logout_page' %}" class="dropdown-item {{ logout }} "> Logout </a>
                             </div>
                         </div>
@@ -211,11 +174,18 @@
                 <div class="col-md-4 mb-5">
                     <h5 class="text-secondary text-uppercase mb-4">Quick Shop</h5>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-secondary mb-2" href="{% url 'home_page' %}"><i class="fa fa-angle-right mr-2"></i>Home</a>
-                        <a class="text-secondary mb-2" href="{% url 'shop_page' %}"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
-                        <a class="text-secondary mb-2" href="{% url 'detail_page' obj.slug obj.id %}"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
-                        <a class="text-secondary mb-2" href="{% url 'cart_page' %}"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
-                        <a class="text-secondary mb-2" href="{% url 'checkout_page' %}"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
+                        <a class="text-secondary mb-2" href="{% url 'home_page' %}"><i
+                                class="fa fa-angle-right mr-2"></i>Home</a>
+                        <a class="text-secondary mb-2" href="{% url 'shop_page' %}"><i
+                                class="fa fa-angle-right mr-2"></i>Our Shop</a>
+                        <a class="text-secondary mb-2" href="{% url 'detail_page' obj.slug obj.id %}"><i
+                                class="fa fa-angle-right mr-2"></i>
+                            Shop Detail
+                        </a>
+                        <a class="text-secondary mb-2" href="{% url 'cart_page' %}"><i
+                                class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
+                        <a class="text-secondary mb-2" href="{% url 'checkout_page' %}"><i
+                                class="fa fa-angle-right mr-2"></i>Checkout</a>
                     </div>
                 </div>
                 <div class="col-md-4 mb-5"></div>
