@@ -43,7 +43,7 @@ class Product(models.Model):
     price = models.IntegerField()
     old_price = models.IntegerField(null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    size = models.ForeignKey(Size, on_delete=models.CASCADE, blank=True, null=True)
+    size = models.ForeignKey(Size, on_delete=models.CASCADE, null=True)
     color = models.ForeignKey(Color, on_delete=models.CASCADE)
     body = models.TextField()
     image = models.ImageField(upload_to='images/', verbose_name='Image (width and height should be equal)')
@@ -82,15 +82,15 @@ class Comment(models.Model):
 
 
 class Filter(models.Model):
-    customer = models.CharField(max_length=150, unique=True)
-    number = models.IntegerField(null=True, blank=True)
-    price = models.IntegerField(null=True, blank=True)
-    color = models.CharField(max_length=200, null=True, blank=True)
-    size = models.CharField(max_length=15, null=True, blank=True)
-    category = models.CharField(max_length=250, null=True, blank=True)
+    customer = models.IntegerField(unique=True)
+    number = models.IntegerField(null=True)
+    price = models.IntegerField(null=True)
+    color = models.CharField(max_length=200, null=True)
+    size = models.CharField(max_length=15, null=True)
+    category = models.CharField(max_length=250, null=True)
 
     def __str__(self):
-        return self.number
+        return self.customer
 
 
 class AveragePrice(models.Model):
@@ -124,12 +124,12 @@ class Activated(models.Model):
     customer_name = models.CharField(max_length=150, null=True)
     product = models.IntegerField(null=True)
     product_name = models.CharField(max_length=150, null=True)
-    delivery_time = models.DateTimeField(null=True, blank=True)
+    delivery_time = models.DateTimeField(null=True)
     country = models.CharField(max_length=150)
     city = models.CharField(max_length=150)
     street = models.CharField(max_length=150)
     house_number = models.CharField(max_length=150)
-    payment_method = models.CharField(max_length=150, null=True, blank=True)  # null blank del
+    payment_method = models.CharField(max_length=150, null=True)
 
     class Meta:
         ordering = ['delivery_time']

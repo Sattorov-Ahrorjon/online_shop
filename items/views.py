@@ -4,10 +4,9 @@ from django.shortcuts import render, redirect
 from .models import Product, Status, Comment, Color, Size, Filter, AveragePrice, Cart, Purchased, Activated
 from account.models import Customer
 from django.contrib import messages
-from django.http import HttpRequest
 
 
-def get_home(request):
+def get_home_view(request):
     try:
         query = Product.objects
         categories = query.filter(status=Status.Published).order_by('category__name').distinct('category__name')
@@ -26,7 +25,7 @@ def get_home(request):
     return render(request, 'index.html', context)
 
 
-def get_shop(request):
+def get_shop_view(request):
     try:
         Filter.objects.create(customer=request.user.username)
     except:
@@ -56,7 +55,7 @@ def get_shop(request):
     return render(request, 'shop.html', context)
 
 
-def get_sorting_store(request, number):
+def get_sorting_store_view(request, number):
     if request.user.is_authenticated:
         one = ''
         two = ''
@@ -65,25 +64,25 @@ def get_sorting_store(request, number):
         filter = Filter.objects
 
         try:
-            dv = filter.get(customer=request.user.username)
+            dv = filter.get(customer=request.user.id)
             dv.number = number
             dv.save()
         except:
             pass
 
-        category = filter.get(customer=request.user.username).category
+        category = filter.get(customer=request.user.id).category
         if not category:
             category = query.get(id=1).category.name
 
-        color = filter.get(customer=request.user.username).color
+        color = filter.get(customer=request.user.id).color
         if not color:
             color = query.get(id=1).color.color
 
-        size = filter.get(customer=request.user.username).size
+        size = filter.get(customer=request.user.id).size
         if not size:
             size = query.get(id=1).size.symbol
 
-        price = filter.get(customer=request.user.username).price
+        price = filter.get(customer=request.user.id).price
         if not price:
             price = query.get(id=1).price
 
@@ -154,7 +153,7 @@ def get_sorting_store(request, number):
     return render(request, 'shop.html', context)
 
 
-def get_sorting_price(request, price):
+def get_sorting_price_view(request, price):
     if request.user.is_authenticated:
 
         one = ''
@@ -164,24 +163,24 @@ def get_sorting_price(request, price):
         filter = Filter.objects
 
         try:
-            dv = filter.get(customer=request.user.username)
+            dv = filter.get(customer=request.user.id)
             dv.price = price
             dv.save()
         except:
             pass
-        category = filter.get(customer=request.user.username).category
+        category = filter.get(customer=request.user.id).category
         if not category:
             category = query.get(id=1).category.name
 
-        color = filter.get(customer=request.user.username).color
+        color = filter.get(customer=request.user.id).color
         if not color:
             color = query.get(id=1).color.color
 
-        size = filter.get(customer=request.user.username).size
+        size = filter.get(customer=request.user.id).size
         if not size:
             size = query.get(id=1).size.symbol
 
-        number = filter.get(customer=request.user.username).number
+        number = filter.get(customer=request.user.id).number
 
         if number == 1:
             one = 'active'
@@ -251,7 +250,7 @@ def get_sorting_price(request, price):
     return render(request, 'shop.html', context)
 
 
-def get_sorting_color(request, color):
+def get_sorting_color_view(request, color):
     if request.user.is_authenticated:
 
         one = ''
@@ -261,25 +260,25 @@ def get_sorting_color(request, color):
         filter = Filter.objects
 
         try:
-            dv = filter.get(customer=request.user.username)
+            dv = filter.get(customer=request.user.id)
             dv.color = color
             dv.save()
         except:
             pass
 
-        category = filter.get(customer=request.user.username).category
+        category = filter.get(customer=request.user.id).category
         if not category:
             category = query.get(id=1).category.name
 
-        size = filter.get(customer=request.user.username).size
+        size = filter.get(customer=request.user.id).size
         if not size:
             size = query.get(id=1).size.symbol
 
-        price = filter.get(customer=request.user.username).price
+        price = filter.get(customer=request.user.id).price
         if not price:
             price = query.get(id=1).price
 
-        number = filter.get(customer=request.user.username).number
+        number = filter.get(customer=request.user.id).number
 
         if number == 1:
             one = 'active'
@@ -348,7 +347,7 @@ def get_sorting_color(request, color):
     return render(request, 'shop.html', context)
 
 
-def get_sorting_size(request, size):
+def get_sorting_size_view(request, size):
     if request.user.is_authenticated:
 
         one = ''
@@ -358,22 +357,22 @@ def get_sorting_size(request, size):
         filter = Filter.objects
 
         try:
-            dv = filter.get(customer=request.user.username)
+            dv = filter.get(customer=request.user.id)
             dv.size = size
             dv.save()
         except:
             pass
 
-        category = filter.get(customer=request.user.username).category
+        category = filter.get(customer=request.user.id).category
         if not category:
             category = query.get(id=1).category.name
-        color = filter.get(customer=request.user.username).color
+        color = filter.get(customer=request.user.id).color
         if not color:
             color = query.get(id=1).color.color
-        price = filter.get(customer=request.user.username).price
+        price = filter.get(customer=request.user.id).price
         if not price:
             price = query.get(id=1).price
-        number = filter.get(customer=request.user.username).number
+        number = filter.get(customer=request.user.id).number
 
         if number == 1:
             one = 'active'
@@ -443,11 +442,11 @@ def get_sorting_size(request, size):
     return render(request, 'shop.html', context)
 
 
-def get_sorting_category(request, category):
+def get_sorting_category_view(request, category):
     if request.user.is_authenticated:
 
         try:
-            Filter.objects.create(customer=request.user.username)
+            Filter.objects.create(customer=request.user.id)
         except:
             pass
 
@@ -458,22 +457,22 @@ def get_sorting_category(request, category):
         filter = Filter.objects
 
         try:
-            dv = filter.get(customer=request.user.username)
+            dv = filter.get(customer=request.user.id)
             dv.category = category
             dv.save()
         except:
             pass
 
-        size = filter.get(customer=request.user.username).size
+        size = filter.get(customer=request.user.id).size
         if not size:
             size = query.get(id=1).size.symbol
-        color = filter.get(customer=request.user.username).color
+        color = filter.get(customer=request.user.id).color
         if not color:
             color = query.get(id=1).color.color
-        price = filter.get(customer=request.user.username).price
+        price = filter.get(customer=request.user.id).price
         if not price:
             price = query.get(id=1).price
-        number = filter.get(customer=request.user.username).number
+        number = filter.get(customer=request.user.id).number
 
         if number == 1:
             one = 'active'
@@ -541,7 +540,7 @@ def get_sorting_category(request, category):
     return render(request, 'shop.html', context)
 
 
-def get_detail(request, slug, idd):
+def get_detail_view(request, slug, idd):
     object = Product.objects.filter(Q(status=Status.Published)).get(id=idd)
     objects = Product.objects.filter(Q(status=Status.Published) & Q(slug=slug))
     comments = Comment.objects.filter(Q(active=True) & Q(product__slug=slug))
@@ -561,7 +560,7 @@ def get_detail(request, slug, idd):
     return render(request, 'detail.html', context)
 
 
-def save_comment(request, slug, idd):
+def save_comment_view(request, slug, idd):
     object = Product.objects.filter(Q(status=Status.Published) & Q(slug=slug)).get(id=idd)
     if request.method == 'POST' and request.user.is_authenticated:
         print('POST')
@@ -575,7 +574,7 @@ def save_comment(request, slug, idd):
     return redirect(f"/detail/{slug}/{idd}")
 
 
-def save_product(request):
+def save_product_view(request):
     slug = request.POST['slug']
     idd = request.POST['idd']
     if request.user.is_authenticated:
@@ -599,13 +598,13 @@ def save_product(request):
     return redirect(f"/detail/{slug}/{idd}")
 
 
-def remove_product(request, idd):
+def remove_product_view(request, idd):
     delete = Cart.objects.get(id=idd)
     delete.delete()
     return redirect('cart_page')
 
 
-def get_cart(request):
+def get_cart_view(request):
     context = {
         'cart': 'active'
     }
@@ -616,7 +615,7 @@ def get_cart(request):
     return render(request, 'cart.html', context)
 
 
-def get_checkout(request):
+def get_checkout_view(request):
     context = {
         'checkout': 'active'
     }
@@ -637,23 +636,24 @@ def get_checkout(request):
     return render(request, 'checkout.html', context)
 
 
-def get_payment(request):
-    if request.method == 'POST':
+def get_payment_view(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
 
-        objects = Cart.objects.filter(customer=request.user.id)  # .product
+            objects = Cart.objects.filter(customer=request.user.id)  # .product
 
-        payment_method = request.POST['payment']
-        country = request.POST['country']
-        city = request.POST['city']
-        street = request.POST['street']
-        house_number = request.POST['house_number']
-        for pr in objects:
-            Activated.objects.create(customer=request.user.id, customer_name=pr.customer_name, product=pr.product,
-                                     product_name=pr.product_name,
-                                     country=country, city=city, street=street, house_number=house_number,
-                                     payment_method=payment_method)
-            Purchased.objects.create(customer=request.user.id, customer_name=pr.customer_name, product=pr.product,
-                                     product_name=pr.product_name)
-            pr.delete()
-        print(payment_method)
+            payment_method = request.POST['payment']
+            country = request.POST['country']
+            city = request.POST['city']
+            street = request.POST['street']
+            house_number = request.POST['house_number']
+            for pr in objects:
+                Activated.objects.create(customer=request.user.id, customer_name=pr.customer_name, product=pr.product,
+                                         product_name=pr.product_name,
+                                         country=country, city=city, street=street, house_number=house_number,
+                                         payment_method=payment_method)
+                Purchased.objects.create(customer=request.user.id, customer_name=pr.customer_name, product=pr.product,
+                                         product_name=pr.product_name)
+                pr.delete()
+            print(payment_method)
     return redirect('home_page')

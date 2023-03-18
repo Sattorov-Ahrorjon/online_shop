@@ -208,7 +208,7 @@
                                          style="width: 45px;">
                                     <div class="media-body">
                                         {% for comment in comments %}
-                                        <h6> {{ comment.customer }}
+                                        <h6> {{ comment.customer|title }}
                                             <small> /
                                                 <i>
                                                     {{ comment.created_time|date:"d-m-Y" }}
